@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,6 +29,8 @@ import org.srh.helloworld.viewmodel.HomeViewModel
 @Composable
 fun HomeView(viewModel : HomeViewModel, navController: NavHostController) {
 
+
+    val selectedScreen = remember{ mutableStateOf("Home")}
     val context= LocalContext.current
     val urlInput by viewModel.urlInput
     MaterialTheme {
@@ -99,6 +103,15 @@ fun HomeView(viewModel : HomeViewModel, navController: NavHostController) {
                 ){
                     Text("login")
                 }
+                Spacer(modifier = Modifier.weight(1f))
+                BottomNavigationBar(
+                    navController =navController,
+                    selectedScreen = selectedScreen.value,
+                    onItemSelected = {
+                        screen ->
+                        selectedScreen.value=screen
+                    }
+                )
 
 
 

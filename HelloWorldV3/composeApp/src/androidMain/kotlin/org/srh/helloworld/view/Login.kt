@@ -19,6 +19,8 @@ import androidx.navigation.NavController
 
 @Composable
 fun Login(navController: NavController) {
+
+    val selectedScreen = remember{ mutableStateOf("Home")}
     // State variables to hold the text input for username and password
     val username = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
@@ -99,5 +101,16 @@ fun Login(navController: NavController) {
         ) {
             Text("Register")
         }
+
+
+        Spacer(modifier = Modifier.weight(1f))
+        BottomNavigationBar(
+            navController =navController,
+            selectedScreen = selectedScreen.value,
+            onItemSelected = {
+                    screen ->
+                selectedScreen.value=screen
+            }
+        )
     }
 }
